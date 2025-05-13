@@ -1,0 +1,390 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+			<TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="moonshine-base-en-onnx\conf.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="moonshine-base-en-onnx\conf.json" />
+    <EmbeddedResource Include="moonshine-tiny-en-onnx\conf.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MoonshineAsr\MoonshineAsr.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="moonshine-base-en-onnx\cached_decode.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\cached_decode.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\encode.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\encode.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\preprocess.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\preprocess.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\test_wavs\5.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\tokens.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\uncached_decode.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-base-en-onnx\uncached_decode.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\cached_decode.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\encode.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\preprocess.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\test_wavs\4.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\test_wavs\5.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\test_wavs\6.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\tokenizer.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\tokens.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="moonshine-tiny-en-onnx\uncached_decode.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="speech_fsmn_vad_zh-cn-16k-common-onnx\model.int8.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="speech_fsmn_vad_zh-cn-16k-common-onnx\vad.mvn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="speech_fsmn_vad_zh-cn-16k-common-onnx\vad.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\ctc.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\decoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\encoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\global_cmvn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell2_u2pp_conformer_20210618_online\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\ctc.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\decoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\encoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20210601_online\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\ctc.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\decoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\encoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\global_cmvn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_aishell_u2pp_conformer_20211025_online\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_offline\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\ctc.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\decoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\encoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_gigaspeech_u2pp_conformer_20210728_online\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\ctc.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\decoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\encoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\global_cmvn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\ctc.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\decoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\encoder.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_offline\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\ctc.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\decoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\encoder.quant.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\test_wavs\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\test_wavs\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\test_wavs\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\test_wavs\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\test_wavs\8k.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wenet_onnx_wenetspeech_u2pp_conformer_20220506_online\units.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
