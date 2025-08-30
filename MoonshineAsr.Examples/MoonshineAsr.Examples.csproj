@@ -100,6 +100,9 @@
     <None Update="speech_fsmn_vad_zh-cn-16k-common-onnx\model.int8.onnx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="speech_fsmn_vad_zh-cn-16k-common-onnx\vad.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="speech_fsmn_vad_zh-cn-16k-common-onnx\vad.mvn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

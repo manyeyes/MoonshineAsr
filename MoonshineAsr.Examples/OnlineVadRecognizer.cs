@@ -11,7 +11,7 @@
             string tokensFilePath = applicationBase + "./" + modelName + "/tokens.txt";
             string vadModelFilePath = applicationBase + "/" + vadModelName + "/" + "model.int8.onnx";
             string vadMvnFilePath = applicationBase + vadModelName + "/" + "vad.mvn";
-            string vadConfigFilePath = applicationBase + vadModelName + "/" + "vad.yaml";
+            string vadConfigFilePath = applicationBase + vadModelName + "/" + "vad.json";
             MoonshineAsr.OnlineVadRecognizer onlineVadRecognizer = new MoonshineAsr.OnlineVadRecognizer(preprocessFilePath, encodeFilePath, cachedDecodeFilePath, uncachedDecodeFilePath, tokensFilePath, vadModelFilePath, vadConfigFilePath, vadMvnFilePath, threadsNum: 1);
             return onlineVadRecognizer;
         }
