@@ -1,9 +1,9 @@
 ﻿// See https://github.com/manyeyes for more information
 // Copyright (c)  2024 by manyeyes
-using Microsoft.Extensions.Logging;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using MoonshineAsr.Model;
 using AliFsmnVad;
+
 
 namespace MoonshineAsr
 {
@@ -15,7 +15,6 @@ namespace MoonshineAsr
     {
         private bool _disposed;
 
-        private readonly ILogger _logger;
         private string[] _tokens;
         private IAsrProj _asrProj;
         private FsmnVad? _fsmnVad = null;
@@ -29,12 +28,10 @@ namespace MoonshineAsr
             {
                 _fsmnVad = new FsmnVad(vadModelFilePath, vadConfigFilePath, vadMvnFilePath, 1);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 //
             }
-            ILoggerFactory loggerFactory = new LoggerFactory();
-            _logger = new Logger<OnlineRecognizer>(loggerFactory);
         }
 
         public OnlineVadStream CreateOnlineVadStream()
@@ -45,7 +42,6 @@ namespace MoonshineAsr
 
         public List<OnlineRecognizerResultEntity> GetResults(List<OnlineVadStream> streams)
         {
-            this._logger.LogInformation("get features begin");
             this.Forward(streams);
             List<OnlineRecognizerResultEntity> onlineRecognizerResultEntities = this.DecodeMulti(streams);
 
@@ -67,7 +63,7 @@ namespace MoonshineAsr
             List<List<SegmentEntity>> segments = new List<List<SegmentEntity>>();
             List<List<int>> tokens = new List<List<int>>();
             List<List<int[]>> timestamps = new List<List<int[]>>();
-            List<int[]> timesList=new List<int[]>();
+            List<int[]> timesList = new List<int[]>();
             List<OnlineVadStream> streamsTemp = new List<OnlineVadStream>();
             List<int[]> nextTokens = new List<int[]>();
             List<int> seqLens = new List<int>();
@@ -75,10 +71,11 @@ namespace MoonshineAsr
             {
                 AsrInputEntity asrInputEntity = new AsrInputEntity();
                 int[] times = new int[2];
-                if (stream.Segments.Count > 0) {
+                if (stream.Segments.Count > 0)
+                {
                     times = new int[2] { (int)stream.Segments.Last().Start, (int)stream.Segments.Last().End };
                 }
-                asrInputEntity.Speech = stream.GetDecodeChunk(ref padFrameNum,ref times);
+                asrInputEntity.Speech = stream.GetDecodeChunk(ref padFrameNum, ref times);
                 timesList.Add(times);
                 shiftFrameNum = padFrameNum;
                 if (asrInputEntity.Speech == null)
@@ -220,21 +217,29 @@ namespace MoonshineAsr
                 {
                     break;
                 }
+#if NET6_0_OR_GREATER || NETCOREAPP3_1_OR_GREATER
                 foreach (var result in segmentEntity.Tokens.Zip<int, int[]>(segmentEntity.Timestamps))
                 {
                     int token = result.First;
+                    int[] timestamp = result.Second;
+#else
+                for (int i = 0; i < segmentEntity.Tokens.Count && i < segmentEntity.Timestamps.Count; i++)
+                {
+                    int token = segmentEntity.Tokens[i];
+                    int[] timestamp = segmentEntity.Timestamps[i];
+#endif
                     if (token == 2)
                     {
                         //break;
                     }
-                    string currText = _tokens[token].Split("\t")[0];
+                    string currText = _tokens[token].Split('\t')[0];
                     if (currText != "</s>" && currText != "<s>" && currText != "<blank>" && currText != "<unk>")
                     {
                         if (Utils.ResultHelper.IsChinese(currText, true))
                         {
                             text_result += currText;
                             onlineRecognizerResultEntity.Tokens.Add(currText);
-                            onlineRecognizerResultEntity.Timestamps.Add(result.Second);
+                            onlineRecognizerResultEntity.Timestamps.Add(timestamp);
                         }
                         else
                         {
@@ -245,12 +250,12 @@ namespace MoonshineAsr
                                 int[] currTimestamp = null;
                                 if (lastTimestamp == null)
                                 {
-                                    currTimestamp = result.Second;
+                                    currTimestamp = timestamp;
                                 }
                                 else
                                 {
                                     List<int> temp = lastTimestamp.ToList();
-                                    temp.AddRange(result.Second.ToList());
+                                    temp.AddRange(timestamp.ToList());
                                     currTimestamp = temp.ToArray();
                                 }
                                 onlineRecognizerResultEntity.Tokens.Remove(onlineRecognizerResultEntity.Tokens.Last());
@@ -266,12 +271,12 @@ namespace MoonshineAsr
                                 int[] currTimestamp = null;
                                 if (lastTimestamp == null)
                                 {
-                                    currTimestamp = result.Second;
+                                    currTimestamp = timestamp;
                                 }
                                 else
                                 {
                                     List<int> temp = lastTimestamp.ToList();
-                                    temp.AddRange(result.Second.ToList());
+                                    temp.AddRange(timestamp.ToList());
                                     currTimestamp = temp.ToArray();
                                 }
                                 if (onlineRecognizerResultEntity.Tokens.Count > 0)
@@ -290,9 +295,9 @@ namespace MoonshineAsr
                             else
                             {
                                 onlineRecognizerResultEntity.Tokens.Add(currText.Replace("▁", ""));
-                                onlineRecognizerResultEntity.Timestamps.Add(result.Second);
+                                onlineRecognizerResultEntity.Timestamps.Add(timestamp);
                                 lastToken = "▁" + currText + "▁";
-                                lastTimestamp = result.Second;
+                                lastTimestamp = timestamp;
                             }
 
                         }

@@ -53,15 +53,30 @@ namespace MoonshineAsr
 
         public InferenceSession initModel(string modelFilePath, int threadsNum = 2)
         {
-            
+            if (string.IsNullOrEmpty(modelFilePath) || !File.Exists(modelFilePath))
+            {
+                return null;
+            }
             Microsoft.ML.OnnxRuntime.SessionOptions options = new Microsoft.ML.OnnxRuntime.SessionOptions();
+            //options.LogSeverityLevel = OrtLoggingLevel.ORT_LOGGING_LEVEL_INFO;
             options.LogSeverityLevel = OrtLoggingLevel.ORT_LOGGING_LEVEL_FATAL;
+            options.GraphOptimizationLevel = GraphOptimizationLevel.ORT_ENABLE_ALL; // 启用所有图优化
             //options.AppendExecutionProvider_DML(0);
             options.AppendExecutionProvider_CPU(0);
             //options.AppendExecutionProvider_CUDA(0);
-            options.InterOpNumThreads = threadsNum;
+            //options.AppendExecutionProvider_MKLDNN();
+            //options.AppendExecutionProvider_ROCm(0);
+            if (threadsNum > 0)
+                options.InterOpNumThreads = threadsNum;
+            else
+                options.InterOpNumThreads = System.Environment.ProcessorCount;
+            // 启用CPU内存计划
+            options.EnableMemoryPattern = true;
+            // 设置其他优化选项            
+            options.GraphOptimizationLevel = GraphOptimizationLevel.ORT_ENABLE_ALL;
+
             InferenceSession onnxSession = null;
-            if (!string.IsNullOrEmpty(modelFilePath) && modelFilePath.IndexOf("/") < 0)
+            if (!string.IsNullOrEmpty(modelFilePath) && modelFilePath.IndexOf("/") < 0 && modelFilePath.IndexOf("\\") < 0)
             {
                 byte[] model = ReadEmbeddedResourceAsBytes(modelFilePath);
                 onnxSession = new InferenceSession(model, options);
@@ -75,8 +90,8 @@ namespace MoonshineAsr
 
         private static byte[] ReadEmbeddedResourceAsBytes(string resourceName)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-
+            //var assembly = Assembly.GetExecutingAssembly();
+            var assembly = typeof(AsrModel).Assembly;
             var stream = assembly.GetManifestResourceStream(resourceName) ??
                          throw new FileNotFoundException($"Embedded resource '{resourceName}' not found.");
 
@@ -96,7 +111,8 @@ namespace MoonshineAsr
             {
                 if (configFilePath.ToLower().EndsWith(".json"))
                 {
-                    confJsonEntity = Utils.PreloadHelper.ReadJson<CustomMetadata>(configFilePath);
+                    //confJsonEntity = Utils.PreloadHelper.ReadJson<CustomMetadata>(configFilePath);
+                    confJsonEntity = Utils.PreloadHelper.ReadJson(configFilePath); // To compile for AOT
                 }
                 else if (configFilePath.ToLower().EndsWith(".yaml"))
                 {
