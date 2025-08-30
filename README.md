@@ -3,7 +3,7 @@ c# library for decoding moonshine's tiny, base Models，used in speech recogniti
 
 ##### 简介：
 
-**MoonshineAsr是一个使用C#编写的“语音识别”库，底层调用Microsoft.ML.OnnxRuntime对onnx模型进行解码，支持框架.Net6.0+，支持跨平台编译，支持AOT编译。使用简单方便。**
+MoonshineAsr是一个使用C#编写的“语音识别”库，底层调用Microsoft.ML.OnnxRuntime对onnx模型进行解码，支持 net461+、net60+、netcoreapp3.1 及 netstandard2.0+ 等多种环境，支持跨平台编译，支持AOT编译。使用简单方便。
 
 ##### 支持的模型（ONNX）
 
